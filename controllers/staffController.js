@@ -1,5 +1,6 @@
 import Staff from '../models/staffModel.js';
 import catchAsync from '../utils/catchAsync.js';
+import generateId from '../utils/generateId.js';
 
 // @desc    Create staff
 // @route   POST /api/staff
@@ -10,14 +11,13 @@ const createStaff = catchAsync(async (req, res, next) => {
     name,
     department,
     designation,
+    staffId: generateId(),
   });
 
   const createdStaff = await staff.save();
 
   res.status(201).json(createdStaff);
 });
-
-
 
 // @desc    Update one staff by ID
 // @route   PUT /api/staff/:id

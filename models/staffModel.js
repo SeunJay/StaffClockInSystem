@@ -17,6 +17,9 @@ const staffSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  staffId: {
+    type: String,
+  },
   timeIn: {
     type: Date,
   },
