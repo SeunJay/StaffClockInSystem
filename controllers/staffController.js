@@ -42,4 +42,15 @@ const updateOneStaff = catchAsync(async (req, res, next) => {
   });
 });
 
-export { createStaff, updateOneStaff };
+// @desc    Get all staff
+// @route   GET /api/staff/
+const getAllStaff = catchAsync(async (req, res, next) => {
+  const allStaff = await Staff.find({});
+
+  res.status(200).json({
+    count: allStaff.length,
+    allStaff,
+  });
+});
+
+export { createStaff, updateOneStaff, getAllStaff };

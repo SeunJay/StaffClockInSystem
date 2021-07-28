@@ -1,9 +1,13 @@
 import express from 'express';
 const router = express.Router();
 
-import { createStaff, updateOneStaff } from '../controllers/staffController.js';
+import {
+  createStaff,
+  updateOneStaff,
+  getAllStaff,
+} from '../controllers/staffController.js';
 
-router.route('/').post(createStaff);
+router.route('/').post(createStaff).get(getAllStaff);
 
 router.route('/:id').patch(updateOneStaff);
 
