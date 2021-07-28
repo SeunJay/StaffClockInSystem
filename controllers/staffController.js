@@ -20,7 +20,7 @@ const createStaff = catchAsync(async (req, res, next) => {
 });
 
 // @desc    Update one staff by ID
-// @route   PUT /api/staff/:id
+// @route   PATCH /api/staff/:id
 const updateOneStaff = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
@@ -42,6 +42,24 @@ const updateOneStaff = catchAsync(async (req, res, next) => {
   });
 });
 
+// @desc    get one staff by ID
+// @route   PATCH /api/staff/:id
+const getOneStaff = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const staff = await Staff.findById(id);
+
+  if (!staff)
+    return res.status(404).json({
+      message: 'No staff found',
+    });
+
+  res.status(200).json({
+    staff,
+  });
+});
+
+
 // @desc    Get all staff
 // @route   GET /api/staff/
 const getAllStaff = catchAsync(async (req, res, next) => {
@@ -53,4 +71,67 @@ const getAllStaff = catchAsync(async (req, res, next) => {
   });
 });
 
-export { createStaff, updateOneStaff, getAllStaff };
+// @desc    Clock staff in
+// @route   PATCH /api/staff/clockIn
+const clockStaffIn = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const { staffId } = req.body;
+
+  const staff = await Staff.findOne({ staffId, _id: id });
+
+  if (!staff)
+    return res.status(404).json({
+      message: 'No staff found',
+    });
+
+  if (staff.isAvailable)
+    return res.status(400).json({
+      message: 'Already clocked in!',
+    });
+
+  staff.isAvailable = true;
+  staff.timeIn = Date.now();
+  await staff.save();
+
+  res.status(200).json({
+    staff,
+  });
+});
+
+// @desc    Clock staff out
+// @route   PATCH /api/staff/clockOut
+const clockStaffOut = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const { staffId } = req.body;
+
+  const staff = await Staff.findOne({ staffId, _id: id });
+
+  if (!staff)
+    return res.status(404).json({
+      message: 'No staff found',
+    });
+
+  if (!staff.isAvailable)
+    return res.status(400).json({
+      message: 'Already clocked out!',
+    });
+
+  staff.isAvailable = false;
+  staff.timeOut = Date.now();
+  await staff.save();
+
+  res.status(200).json({
+    staff,
+  });
+});
+
+export {
+  createStaff,
+  updateOneStaff,
+  getOneStaff,
+  getAllStaff,
+  clockStaffIn,
+  clockStaffOut,
+};

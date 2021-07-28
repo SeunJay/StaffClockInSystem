@@ -21,11 +21,13 @@ const staffSchema = mongoose.Schema({
     type: String,
   },
   timeIn: {
-    type: Date,
+    type: Number,
+    default: 0,
   },
 
   timeOut: {
-    type: Date,
+    type: Number,
+    default: 0,
   },
 });
 
