@@ -1,8 +1,15 @@
-
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
-function App() {
-  return <div className='App'>Hello World!</div>;
-}
+const App = () => {
+  return (
+    <Router>
+      <Switch>
+        <div className='App'>Hello World!</div>
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;
