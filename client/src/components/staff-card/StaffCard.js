@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   CardWrapper,
   CardFooter,
@@ -9,6 +10,8 @@ import {
 } from './staff-card.styles';
 
 const StaffCard = ({ staff }) => {
+  // const [isEdit, setIsEdit] = useState(false);
+  // console.log(staff._id);
   const { name, staffId } = staff;
   return (
     <CardWrapper>
@@ -22,9 +25,16 @@ const StaffCard = ({ staff }) => {
         <StaffId>{staffId}</StaffId>
       </CardFooter>
 
-      <CustomButton className='custom-button' inverted>
-        Clock In
-      </CustomButton>
+      <Link
+        to={{
+          pathname: `/edit-staff/${staff._id}`,
+          state: { name },
+        }}
+      >
+        <CustomButton className='custom-button' inverted>
+          Edit Name
+        </CustomButton>
+      </Link>
     </CardWrapper>
   );
 };

@@ -6,6 +6,9 @@ import {
   ADD_NEW_STAFF_FAILURE,
   ADD_NEW_STAFF_SUCCESS,
   ADD_NEW_STAFF_REQUEST,
+  UPDATE_STAFF_SUCCESS,
+  UPDATE_STAFF_REQUEST,
+  UPDATE_STAFF_FAILURE,
 } from './staff.types';
 
 export const getAllStaff = () => async (dispatch) => {
@@ -63,3 +66,36 @@ export const addNewStaff =
       });
     }
   };
+
+export const updateStaff = (name, id) => async (dispatch) => {
+  dispatch({ type: UPDATE_STAFF_REQUEST });
+  console.log('called');
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.patch(
+      `/api/staff/${id}`,
+      {
+        name,
+      },
+      config
+    );
+
+    console.log(res);
+
+    dispatch({
+      type: UPDATE_STAFF_SUCCESS,
+      payload: res.data.staffToUpdate,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_STAFF_FAILURE,
+      payload: {
+        msg: error.response.statusText,
+      },
+    });
+  }
+};

@@ -7,12 +7,14 @@ export const CardWrapper = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  margin-bottom: 60px;
 
   & .custom-button {
     width: 80%;
     opacity: 0.7;
     position: absolute;
     top: 255px;
+    right: 46px;
     display: none;
   }
 

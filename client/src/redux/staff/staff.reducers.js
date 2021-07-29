@@ -4,13 +4,17 @@ import {
   FETCH_ALL_STAFF_FAILURE,
   ADD_NEW_STAFF_FAILURE,
   ADD_NEW_STAFF_SUCCESS,
-  ADD_NEW_STAFF_REQUEST
+  ADD_NEW_STAFF_REQUEST,
+  UPDATE_STAFF_FAILURE,
+  UPDATE_STAFF_REQUEST,
+  UPDATE_STAFF_SUCCESS,
 } from './staff.types';
 
 const INITIAL_STATE = {
   collection: null,
   isFetching: false,
   newStaff: null,
+  updatedStaff: null,
   errorMessage: '',
 };
 
@@ -32,14 +36,13 @@ export const staffReducer = (state = INITIAL_STATE, action) => {
     case FETCH_ALL_STAFF_FAILURE:
       return {
         ...state,
-        isFetching: true,
+        isFetching: false,
         errorMessage: payload,
       };
     default:
       return state;
   }
 };
-
 
 export const newStaffReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
@@ -59,7 +62,33 @@ export const newStaffReducer = (state = INITIAL_STATE, action) => {
     case ADD_NEW_STAFF_FAILURE:
       return {
         ...state,
+        isFetching: false,
+        errorMessage: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const updateStaffReducer = (state = INITIAL_STATE, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case UPDATE_STAFF_REQUEST:
+      return {
+        ...state,
         isFetching: true,
+      };
+    case UPDATE_STAFF_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        updatedStaff: payload,
+      };
+
+    case UPDATE_STAFF_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
         errorMessage: payload,
       };
     default:
