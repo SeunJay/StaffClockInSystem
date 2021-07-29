@@ -9,6 +9,7 @@ import {
 import { ReactComponent as Logo } from '../../assets/original.svg';
 
 const Header = () => {
+
   return (
     <HeaderContainer>
       <LogoContainer to='/'>
