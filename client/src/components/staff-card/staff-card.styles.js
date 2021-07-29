@@ -63,7 +63,7 @@ export const CustomButton = styled.button`
   font-size: 15px;
   /* background-color: black; */
   background-color: ${({ inverted }) => (inverted ? 'white' : 'black')};
-  color: ${({ inverted }) => (inverted ? 'white' : 'black')};
+  color: ${({ inverted }) => (inverted ? 'white' : 'white')};
   text-transform: uppercase;
   font-family: 'Open Sans Condensed';
   font-weight: bolder;

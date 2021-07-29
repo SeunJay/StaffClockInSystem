@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
-import { staffReducer } from './staff/staff.reducers';
+import { staffReducer, newStaffReducer } from './staff/staff.reducers';
 
-const rootReducer = combineReducers({ staff: staffReducer });
+const rootReducer = combineReducers({
+  staff: staffReducer,
+  newStaff: newStaffReducer,
+});
 
 export default rootReducer;
