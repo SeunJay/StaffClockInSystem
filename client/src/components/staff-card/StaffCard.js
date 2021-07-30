@@ -62,7 +62,7 @@ const StaffCard = ({ item }) => {
       errors: '',
     }));
 
-    //toast.success('Checked In successfully!');
+    toast.success('Checked In successfully!');
   };
 
   const handleClockOut = (e) => {
