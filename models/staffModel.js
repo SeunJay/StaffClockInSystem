@@ -29,6 +29,9 @@ const staffSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  period: {
+    type: String,
+  },
 });
 
 const Staff = mongoose.model('Staff', staffSchema);

@@ -59,7 +59,6 @@ const getOneStaff = catchAsync(async (req, res, next) => {
   });
 });
 
-
 // @desc    Get all staff
 // @route   GET /api/staff/
 const getAllStaff = catchAsync(async (req, res, next) => {
@@ -89,6 +88,8 @@ const clockStaffIn = catchAsync(async (req, res, next) => {
     return res.status(400).json({
       message: 'Already clocked in!',
     });
+
+
 
   staff.isAvailable = true;
   staff.timeIn = Date.now();

@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
-import { Collection, Title, Items } from './allStaff.styles';
+import { Collection, Title, Items, Wrapper } from './allStaff.styles';
+import { Link } from 'react-router-dom';
 import StaffCard from '../staff-card/StaffCard';
+import Spinner from '../spinner/Spinner';
+import Button from '../custom-button2/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllStaff } from '../../redux/staff/staff.actions';
 
@@ -21,16 +24,21 @@ const AllStaff = () => {
 
   useEffect(() => {
     dispatch(getAllStaff());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Collection>
       <Title>All Staff</Title>
-      <Items>
-        {collection && collection.map((staff) => (
-            <StaffCard key={staff._id} staff={staff} />
-          ))}
-      </Items>
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        <Items>
+          {collection &&
+            collection.map((staff) => (
+              <StaffCard key={staff._id} item={staff} />
+            ))}
+        </Items>
+      )}
     </Collection>
   );
 };

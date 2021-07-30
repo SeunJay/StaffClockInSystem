@@ -8,13 +8,15 @@ export const CardWrapper = styled.div`
   align-items: center;
   position: relative;
   margin-bottom: 60px;
+  /* border: 1px solid red; */
+  //padding: 30px 40px;
 
   & .custom-button {
     width: 80%;
     opacity: 0.7;
     position: absolute;
-    top: 255px;
-    right: 46px;
+    top: 140px;
+    right: 42px;
     display: none;
   }
 
@@ -43,7 +45,9 @@ export const CardFooter = styled.div`
   height: 5%;
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: 15px;
+  margin-bottom: 15px;
+  /* border: 1px solid red; */
 `;
 
 export const StaffName = styled.span`
@@ -63,9 +67,9 @@ export const CustomButton = styled.button`
   line-height: 50px;
   padding: 0 35px 0 35px;
   font-size: 15px;
-  /* background-color: black; */
+  background-color: black;
   background-color: ${({ inverted }) => (inverted ? 'white' : 'black')};
-  color: ${({ inverted }) => (inverted ? 'white' : 'white')};
+  color: ${({ inverted }) => (inverted ? 'black' : 'white')};
   text-transform: uppercase;
   font-family: 'Open Sans Condensed';
   font-weight: bolder;

@@ -9,6 +9,12 @@ import {
   UPDATE_STAFF_SUCCESS,
   UPDATE_STAFF_REQUEST,
   UPDATE_STAFF_FAILURE,
+  CLOCK_STAFF_IN_REQUEST,
+  CLOCK_STAFF_IN_SUCCESS,
+  CLOCK_STAFF_IN_FAILURE,
+  CLOCK_STAFF_OUT_FAILURE,
+  CLOCK_STAFF_OUT_REQUEST,
+  CLOCK_STAFF_OUT_SUCCESS,
 } from './staff.types';
 
 export const getAllStaff = () => async (dispatch) => {
@@ -93,6 +99,75 @@ export const updateStaff = (name, id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_STAFF_FAILURE,
+      payload: {
+        msg: error.response.statusText,
+      },
+    });
+  }
+};
+
+export const clockStaffIn = (staffId, id) => async (dispatch) => {
+  dispatch({ type: CLOCK_STAFF_IN_REQUEST });
+  console.log('called');
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.patch(
+      `/api/staff/clockIn/${id}`,
+      {
+        staffId,
+      },
+      config
+    );
+
+    console.log(res);
+
+    dispatch({
+      type: CLOCK_STAFF_IN_SUCCESS,
+      payload: res.data.staff,
+    });
+  } catch (error) {
+    dispatch({
+      type: CLOCK_STAFF_IN_FAILURE,
+      payload: {
+        msg: error.response.statusText,
+      },
+    });
+  }
+};
+
+
+
+
+export const clockStaffOut = (staffId, id) => async (dispatch) => {
+  dispatch({ type: CLOCK_STAFF_OUT_REQUEST });
+  console.log('called');
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.patch(
+      `/api/staff/clockOut/${id}`,
+      {
+        staffId,
+      },
+      config
+    );
+
+    console.log(res);
+
+    dispatch({
+      type: CLOCK_STAFF_OUT_SUCCESS,
+      payload: res.data.staff,
+    });
+  } catch (error) {
+    dispatch({
+      type: CLOCK_STAFF_OUT_FAILURE,
       payload: {
         msg: error.response.statusText,
       },

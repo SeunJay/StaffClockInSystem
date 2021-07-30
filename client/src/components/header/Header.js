@@ -9,7 +9,6 @@ import {
 import { ReactComponent as Logo } from '../../assets/original.svg';
 
 const Header = () => {
-
   return (
     <HeaderContainer>
       <LogoContainer to='/'>
@@ -18,7 +17,7 @@ const Header = () => {
 
       <OptionsContainer>
         <OptionLink to='/add-new-staff'>ADD NEW STAFF</OptionLink>
-        <OptionLink to='contact'>CONTACT</OptionLink>
+        <OptionLink to='/staff-in-and-out'>IN AND OUT</OptionLink>
       </OptionsContainer>
     </HeaderContainer>
   );

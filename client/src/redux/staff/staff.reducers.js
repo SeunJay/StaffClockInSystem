@@ -8,6 +8,12 @@ import {
   UPDATE_STAFF_FAILURE,
   UPDATE_STAFF_REQUEST,
   UPDATE_STAFF_SUCCESS,
+  CLOCK_STAFF_IN_FAILURE,
+  CLOCK_STAFF_IN_REQUEST,
+  CLOCK_STAFF_IN_SUCCESS,
+  CLOCK_STAFF_OUT_FAILURE,
+  CLOCK_STAFF_OUT_REQUEST,
+  CLOCK_STAFF_OUT_SUCCESS,
 } from './staff.types';
 
 const INITIAL_STATE = {
@@ -15,6 +21,7 @@ const INITIAL_STATE = {
   isFetching: false,
   newStaff: null,
   updatedStaff: null,
+  clockedStaff: null,
   errorMessage: '',
 };
 
@@ -86,6 +93,35 @@ export const updateStaffReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UPDATE_STAFF_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const clockStaffInReducer = (state = INITIAL_STATE, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case CLOCK_STAFF_IN_REQUEST:
+    case CLOCK_STAFF_OUT_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case CLOCK_STAFF_IN_SUCCESS:
+    case CLOCK_STAFF_OUT_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        clockedStaff: payload,
+      };
+
+    case CLOCK_STAFF_IN_FAILURE:
+    case CLOCK_STAFF_OUT_FAILURE:
       return {
         ...state,
         isFetching: false,
