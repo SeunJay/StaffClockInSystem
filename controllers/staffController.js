@@ -1,6 +1,7 @@
 import Staff from '../models/staffModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import generateId from '../utils/generateId.js';
+import AppError from '../utils/appError.js';
 
 // @desc    Create staff
 // @route   POST /api/staff
@@ -28,10 +29,12 @@ const updateOneStaff = catchAsync(async (req, res, next) => {
 
   const staffToUpdate = await Staff.findById(id);
 
-  if (!staffToUpdate)
-    return res.status(404).json({
-      message: 'No staff found',
-    });
+  // if (!staffToUpdate)
+  //   return res.status(404).json({
+  //     message: 'No staff found',
+  //   });
+
+  if (!staffToUpdate) return next(new AppError('Staff not found!', 404));
 
   staffToUpdate.name = name ? name : staffToUpdate.name;
   await staffToUpdate.save();
@@ -49,10 +52,7 @@ const getOneStaff = catchAsync(async (req, res, next) => {
 
   const staff = await Staff.findById(id);
 
-  if (!staff)
-    return res.status(404).json({
-      message: 'No staff found',
-    });
+  if (!staff) return next(new AppError('Staff not found!', 404));
 
   res.status(200).json({
     staff,
@@ -79,17 +79,9 @@ const clockStaffIn = catchAsync(async (req, res, next) => {
 
   const staff = await Staff.findOne({ staffId, _id: id });
 
-  if (!staff)
-    return res.status(404).json({
-      message: 'No staff found',
-    });
+  if (!staff) return next(new AppError('Staff not found!', 404));
 
-  if (staff.isAvailable)
-    return res.status(400).json({
-      message: 'Already clocked in!',
-    });
-
-
+  if (staff.isAvailable) return next(new AppError('Already Checked In', 400));
 
   staff.isAvailable = true;
   staff.timeIn = Date.now();
@@ -109,15 +101,9 @@ const clockStaffOut = catchAsync(async (req, res, next) => {
 
   const staff = await Staff.findOne({ staffId, _id: id });
 
-  if (!staff)
-    return res.status(404).json({
-      message: 'No staff found',
-    });
+  if (!staff) return next(new AppError('Staff Not Found', 404));
 
-  if (!staff.isAvailable)
-    return res.status(400).json({
-      message: 'Already clocked out!',
-    });
+  if (!staff.isAvailable) return next(new AppError('Already Checked Out', 400));
 
   staff.isAvailable = false;
   staff.timeOut = Date.now();

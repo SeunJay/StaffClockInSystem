@@ -6,6 +6,9 @@ import Message from '../message/Message';
 import { CustomButton } from '../staff-card/staff-card.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateStaff } from '../../redux/staff/staff.actions';
+import { toast } from 'react-toastify';
+
+
 
 const UpdateStaff = () => {
   const params = useParams();
@@ -46,17 +49,17 @@ const UpdateStaff = () => {
     setFormValues((prevProps) => ({ ...prevProps, [name]: value }));
   };
 
-  if (errors) {
-    setTimeout(() => {
-      setFormValues((prevProps) => ({ ...prevProps, errors: '' }));
-    }, 3000);
-  }
+  // if (errors) {
+  //   setTimeout(() => {
+  //     setFormValues((prevProps) => ({ ...prevProps, errors: '' }));
+  //   }, 3000);
+  // }
 
-  if (successMessage) {
-    setTimeout(() => {
-      setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
-    }, 3000);
-  }
+  // if (successMessage) {
+  //   setTimeout(() => {
+  //     setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
+  //   }, 3000);
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,10 +67,8 @@ const UpdateStaff = () => {
     console.log('called!');
 
     if (!name)
-      return setFormValues((prevProps) => ({
-        ...prevProps,
-        errors: 'Name field cannot be empty!',
-      }));
+    return toast.error('Name field is required!');
+
 
     dispatch(updateStaff(name, params.id));
 
@@ -76,13 +77,16 @@ const UpdateStaff = () => {
       errors: '',
       successMessage: '',
     });
+
+    toast.success('Staff name updated successfully!');
+
   };
 
   return (
     <Container>
       <Title>Edit Name</Title>
-      {errors && <Message error={true}>{errors}</Message>}
-      {successMessage && <Message error={false}>{successMessage}</Message>}
+      {/* {errors && <Message error={true}>{errors}</Message>}
+      {successMessage && <Message error={false}>{successMessage}</Message>} */}
       <form onSubmit={handleSubmit}>
         <FormInput
           type='text'

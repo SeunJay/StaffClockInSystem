@@ -130,6 +130,7 @@ export const clockStaffIn = (staffId, id) => async (dispatch) => {
       payload: res.data.staff,
     });
   } catch (error) {
+    console.error(error.response)
     dispatch({
       type: CLOCK_STAFF_IN_FAILURE,
       payload: {
@@ -166,6 +167,7 @@ export const clockStaffOut = (staffId, id) => async (dispatch) => {
       payload: res.data.staff,
     });
   } catch (error) {
+    
     dispatch({
       type: CLOCK_STAFF_OUT_FAILURE,
       payload: {

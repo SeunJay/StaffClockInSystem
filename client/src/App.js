@@ -5,6 +5,9 @@ import AddStaff from './components/add-staff/AddStaff';
 import UpdateStaff from './components/update-staff/UpdateStaff';
 import Table from './components/table/Table';
 import AllStaff from './components/staff-collection/AllStaff';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './App.css';
 
 const App = () => {
@@ -17,6 +20,7 @@ const App = () => {
         <Route exact path='/edit-staff/:id' component={UpdateStaff} />
         <Route exact path='/staff-in-and-out' component={Table} />
       </Switch>
+      <ToastContainer autoClose={3000} hideProgressBar />
     </Router>
   );
 };

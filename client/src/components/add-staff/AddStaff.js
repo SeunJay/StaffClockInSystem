@@ -5,6 +5,7 @@ import Message from '../message/Message';
 import { CustomButton } from '../staff-card/staff-card.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewStaff } from '../../redux/staff/staff.actions';
+import { toast } from 'react-toastify';
 
 const initialState = {
   name: '',
@@ -19,16 +20,16 @@ const AddStaff = () => {
 
   const staff = useSelector((state) => state.newStaff);
 
-  const { newStaff } = staff;
+  // const { newStaff } = staff;
 
-  useEffect(() => {
-    if (newStaff !== null) {
-      return setFormValues((prevProps) => ({
-        ...prevProps,
-        successMessage: 'Staff added successfully!',
-      }));
-    }
-  }, [newStaff]);
+  // useEffect(() => {
+  //   if (newStaff !== null) {
+  //     return setFormValues((prevProps) => ({
+  //       ...prevProps,
+  //       successMessage: 'Staff added successfully!',
+  //     }));
+  //   }
+  // }, [newStaff]);
 
   const [formValues, setFormValues] = useState(initialState);
 
@@ -45,34 +46,38 @@ const AddStaff = () => {
 
     console.log('called!');
 
+    // if (!name || !department || !designation)
+    //   return setFormValues((prevProps) => ({
+    //     ...prevProps,
+    //     errors: 'All fields are required!',
+    //   }));
+
     if (!name || !department || !designation)
-      return setFormValues((prevProps) => ({
-        ...prevProps,
-        errors: 'All fields are required!',
-      }));
+      return toast.error('All fields are required!');
 
     dispatch(addNewStaff(name, department, designation));
 
     setFormValues(initialState);
+    toast.success('New staff added successfully!');
   };
 
-  if (errors) {
-    setTimeout(() => {
-      setFormValues((prevProps) => ({ ...prevProps, errors: '' }));
-    }, 3000);
-  }
+  // if (errors) {
+  //   setTimeout(() => {
+  //     setFormValues((prevProps) => ({ ...prevProps, errors: '' }));
+  //   }, 3000);
+  // }
 
-  if (successMessage) {
-    setTimeout(() => {
-      setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
-    }, 3000);
-  }
+  // if (successMessage) {
+  //   setTimeout(() => {
+  //     setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
+  //   }, 3000);
+  // }
 
   return (
     <Container>
       <Title>Create New Staff</Title>
-      {errors && <Message error={true}>{errors}</Message>}
-      {successMessage && <Message error={false}>{successMessage}</Message>}
+      {/* {errors && <Message error={true}>{errors}</Message>}
+      {successMessage && <Message error={false}>{successMessage}</Message>} */}
       <form onSubmit={handleSubmit}>
         <FormInput
           type='text'

@@ -5,6 +5,7 @@ import Button from '../custom-button2/Button';
 import Moment from 'react-moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { clockStaffIn, clockStaffOut } from '../../redux/staff/staff.actions';
+import { toast } from 'react-toastify';
 
 import {
   CardWrapper,
@@ -32,12 +33,12 @@ const StaffCard = ({ item }) => {
   console.log(checkedStaff);
 
   useEffect(() => {
-    if (clockedStaff !== null && clockedStaff._id === item._id) {
-      return setFormValues((prevProps) => ({
-        ...prevProps,
-        successMessage: 'Checked successfully!',
-      }));
+    if (clockedStaff !== null && clockedStaff.errorMessage.msg !== '') {
+      console.log('called');
+      return toast.error('Already Checked!');
+      
     }
+    // console.log('called');
   }, []);
 
   const [formValues, setFormValues] = useState(initialState);
@@ -50,12 +51,7 @@ const StaffCard = ({ item }) => {
 
     const { staffId } = formValues;
 
-    if (!staffId) {
-      return setFormValues((prevProps) => ({
-        ...prevProps,
-        errors: 'Id field cannot be empty!',
-      }));
-    }
+    if (!staffId) return toast.error('Staff Id field is required!');
 
     dispatch(clockStaffIn(staffId, item._id));
 
@@ -65,6 +61,8 @@ const StaffCard = ({ item }) => {
       successMessage: '',
       errors: '',
     }));
+
+    //toast.success('Checked In successfully!');
   };
 
   const handleClockOut = (e) => {
@@ -73,12 +71,7 @@ const StaffCard = ({ item }) => {
 
     const { staffId } = formValues;
 
-    if (!staffId) {
-      return setFormValues((prevProps) => ({
-        ...prevProps,
-        errors: 'Id field cannot be empty!',
-      }));
-    }
+    if (!staffId) return toast.error('Staff Id field is required!');
 
     dispatch(clockStaffOut(staffId, item._id));
 
@@ -88,19 +81,21 @@ const StaffCard = ({ item }) => {
       successMessage: '',
       errors: '',
     }));
+
+    toast.success('Checked Out successfully!');
   };
 
-  if (formValues.errors) {
-    setTimeout(() => {
-      setFormValues((prevProps) => ({ ...prevProps, errors: '' }));
-    }, 3000);
-  }
+  // if (formValues.errors) {
+  //   setTimeout(() => {
+  //     setFormValues((prevProps) => ({ ...prevProps, errors: '' }));
+  //   }, 3000);
+  // }
 
-  if (formValues.successMessage) {
-    setTimeout(() => {
-      setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
-    }, 3000);
-  }
+  // if (formValues.successMessage) {
+  //   setTimeout(() => {
+  //     setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
+  //   }, 3000);
+  // }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -111,15 +106,9 @@ const StaffCard = ({ item }) => {
   return (
     <>
       <CardWrapper>
-        {formValues.errors && (
-          <Message error={true}>{formValues.errors}</Message>
-        )}
-        {formValues.successMessage && (
-          <Message error={false}>{formValues.successMessage}</Message>
-        )}
         <Image
           style={{
-            backgroundImage: `url('https://i.ibb.co/xJS0T3Y/camo-vest.png')`,
+            backgroundImage: `url('https://i.ibb.co/RvwnBL8/pink-shirt.png')`,
           }}
         />
         <CardFooter>
@@ -141,28 +130,6 @@ const StaffCard = ({ item }) => {
           <Button onClick={handleClockIn}>Clock in</Button>
           <Button onClick={handleClockOut}>Clock out</Button>
         </CardFooter>
-        {/* <CardFooter>
-          {clockedStaff &&
-            clockedStaff._id === item._id &&
-            clockedStaff.isAvailable &&
-            clockedStaff.timeOut === 0 && (
-              <small>
-                Checked in{' '}
-                <Moment format="YYYY/MM/DD">{new Date(clockedStaff.timeIn)}</Moment>
-              </small>
-            )}
-        </CardFooter>
-        <CardFooter>
-          {clockedStaff &&
-            clockedStaff._id === item._id &&
-            !clockedStaff.isAvailable &&
-            clockedStaff.timeIn !== 0 && (
-              <small>
-                Checked out{' '}
-                <Moment fromNow>{new Date(clockedStaff.timeOut)}</Moment>
-              </small>
-            )}
-        </CardFooter> */}
         <CardFooter></CardFooter>
         <input
           type='text'

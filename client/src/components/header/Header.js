@@ -17,7 +17,7 @@ const Header = () => {
 
       <OptionsContainer>
         <OptionLink to='/add-new-staff'>ADD NEW STAFF</OptionLink>
-        <OptionLink to='/staff-in-and-out'>IN AND OUT</OptionLink>
+        <OptionLink to='/staff-in-and-out'>IN/OUT</OptionLink>
       </OptionsContainer>
     </HeaderContainer>
   );
