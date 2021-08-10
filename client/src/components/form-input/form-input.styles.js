@@ -30,6 +30,7 @@ export const FormInputContainer = styled.input`
   border-radius: 0;
   border-bottom: 1px solid ${subColor};
   margin: 25px 0;
+  /* border: 1px solid green; */
 
   &:focus {
     outline: none;
@@ -37,6 +38,10 @@ export const FormInputContainer = styled.input`
 
   &:focus ~ label {
     ${shrinkLabelStyles}
+  }
+
+  @media only screen and (max-width: 480px) {
+    padding: 5px 5px 5px 5px;
   }
 `;
 
@@ -52,5 +57,9 @@ export const FormInputLabel = styled.label`
 
   &.shrink {
     ${shrinkLabelStyles}
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 13px;
   }
 `;

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Message from '../message/Message';
 import Button from '../custom-button2/Button';
-import Moment from 'react-moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { clockStaffIn, clockStaffOut } from '../../redux/staff/staff.actions';
 import { toast } from 'react-toastify';
@@ -24,30 +22,42 @@ const initialState = {
 };
 
 const StaffCard = ({ item }) => {
-  const dispatch = useDispatch();
-
-  const checkedStaff = useSelector((state) => state.clockedStaff);
-
-  const { clockedStaff } = checkedStaff;
-
-  console.log(checkedStaff);
-
-  useEffect(() => {
-    if (clockedStaff !== null && clockedStaff.errorMessage.msg !== '') {
-      console.log('called');
-      return toast.error('Already Checked!');
-      
-    }
-    // console.log('called');
-  }, []);
+  // useEffect(() => {
+  //   if (errorMessage !== '') {
+  //     return setFormValues((prevProps) => ({ ...prevProps, errors: errorMessage }));
+  //   }
+  // }, []);
 
   const [formValues, setFormValues] = useState(initialState);
 
   const { name, staffId } = item;
 
-  const handleClockIn = (e) => {
+  const dispatch = useDispatch();
+
+  const checkedStaff = useSelector((state) => state.staff);
+
+  const { errorMessage, clockedStaff } = checkedStaff;
+
+  // useEffect(() => {
+  //   if (clockedStaff) {
+  //     if (!clockedStaff.timeOut) {
+  //       return toast.success('checked in successfully');
+  //     } else {
+  //       return toast.success('checked out successfully');
+  //     }
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!clockedStaff && errorMessage) return toast.error(errorMessage);
+  // }, []);
+
+  // if (errorMessage) {
+  //   toast.error(errorMessage);
+  // }
+
+  const handleClockIn = async (e) => {
     e.preventDefault();
-    setFormValues((prevProps) => ({ ...prevProps, isIn: true }));
 
     const { staffId } = formValues;
 
@@ -61,13 +71,10 @@ const StaffCard = ({ item }) => {
       successMessage: '',
       errors: '',
     }));
-
-    toast.success('Checked In successfully!');
   };
 
   const handleClockOut = (e) => {
     e.preventDefault();
-    setFormValues((prevProps) => ({ ...prevProps, isIn: false }));
 
     const { staffId } = formValues;
 
@@ -82,7 +89,7 @@ const StaffCard = ({ item }) => {
       errors: '',
     }));
 
-    toast.success('Checked Out successfully!');
+    // toast.success('Checked Out successfully!');
   };
 
   // if (formValues.errors) {
@@ -95,6 +102,10 @@ const StaffCard = ({ item }) => {
   //   setTimeout(() => {
   //     setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
   //   }, 3000);
+  // }
+
+  // if (formValues.errors) {
+  //   toast.error(formValues.errors);
   // }
 
   const handleChange = (e) => {
@@ -130,7 +141,7 @@ const StaffCard = ({ item }) => {
           <Button onClick={handleClockIn}>Clock in</Button>
           <Button onClick={handleClockOut}>Clock out</Button>
         </CardFooter>
-        <CardFooter></CardFooter>
+
         <input
           type='text'
           name='staffId'

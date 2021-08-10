@@ -1,14 +1,24 @@
 body {
-  font-family: "Open Sans Condensed";
-  padding: 20px 60px
+  font-family: 'Open Sans Condensed';
+  padding: 20px 60px;
 }
 
+@media only screen and (max-width: 480px) {
+  body {
+    padding: 0px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  body {
+    padding: 0px;
+  }
+}
 
 a {
   text-decoration: none;
-  color: #000
+  color: #000;
 }
-
 
 * {
   box-sizing: border-box;

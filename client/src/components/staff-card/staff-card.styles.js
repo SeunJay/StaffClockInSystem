@@ -8,6 +8,7 @@ export const CardWrapper = styled.div`
   align-items: center;
   position: relative;
   margin-bottom: 60px;
+
   /* border: 1px solid red; */
   //padding: 30px 40px;
 
@@ -18,6 +19,12 @@ export const CardWrapper = styled.div`
     top: 140px;
     right: 42px;
     display: none;
+
+    @media only screen and (max-width: 480px) {
+      top: 90px;
+      right: 13px;
+      width: 70%;
+    }
   }
 
   &:hover {
@@ -30,6 +37,19 @@ export const CardWrapper = styled.div`
       display: flex;
     }
   }
+
+  
+
+  @media only screen and (max-width: 540px) {
+    width: 50%;
+    margin: 0 auto;
+    padding: 5%;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    width: 100%;
+  }
+  
 `;
 
 export const Image = styled.div`
@@ -38,6 +58,11 @@ export const Image = styled.div`
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
+  object-fit: cover;
+
+  /* @media only screen and (max-width: 654px) {
+    border: 2px solid black;
+  } */
 `;
 
 export const CardFooter = styled.div`
@@ -48,15 +73,25 @@ export const CardFooter = styled.div`
   font-size: 15px;
   margin-bottom: 15px;
   /* border: 1px solid red; */
+
+  /* @media only screen and (max-width: 480px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } */
 `;
 
 export const StaffName = styled.span`
   width: 90%;
+  /* border: 1px solid blue; */
+
   margin-bottom: 15px;
 `;
 
 export const StaffId = styled.span`
   width: 10%;
+  /* border: 1px solid blue; */
 `;
 
 export const CustomButton = styled.button`
@@ -87,4 +122,18 @@ export const CustomButton = styled.button`
     border: 1px solid black;
     letter-spacing: 0px;
   }
+
+  @media only screen and (max-width: 480px) {
+    max-width: 125px;
+    width: auto;
+    height: 50px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px 0 30px;
+  }
+
+
+
 `;

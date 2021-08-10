@@ -29,6 +29,10 @@ export const staffReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case FETCH_ALL_STAFF_REQUEST:
+    case ADD_NEW_STAFF_REQUEST:
+    case UPDATE_STAFF_REQUEST:
+    case CLOCK_STAFF_IN_REQUEST:
+    case CLOCK_STAFF_OUT_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -39,26 +43,6 @@ export const staffReducer = (state = INITIAL_STATE, action) => {
         isFetching: false,
         collection: payload,
       };
-
-    case FETCH_ALL_STAFF_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        errorMessage: payload,
-      };
-    default:
-      return state;
-  }
-};
-
-export const newStaffReducer = (state = INITIAL_STATE, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case ADD_NEW_STAFF_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-      };
     case ADD_NEW_STAFF_SUCCESS:
       return {
         ...state,
@@ -66,68 +50,114 @@ export const newStaffReducer = (state = INITIAL_STATE, action) => {
         newStaff: payload,
       };
 
-    case ADD_NEW_STAFF_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        errorMessage: payload,
-      };
-    default:
-      return state;
-  }
-};
-
-export const updateStaffReducer = (state = INITIAL_STATE, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case UPDATE_STAFF_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-      };
     case UPDATE_STAFF_SUCCESS:
       return {
         ...state,
         isFetching: false,
         updatedStaff: payload,
       };
-
-    case UPDATE_STAFF_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        errorMessage: payload,
-      };
-    default:
-      return state;
-  }
-};
-
-export const clockStaffInReducer = (state = INITIAL_STATE, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case CLOCK_STAFF_IN_REQUEST:
-    case CLOCK_STAFF_OUT_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-      };
     case CLOCK_STAFF_IN_SUCCESS:
     case CLOCK_STAFF_OUT_SUCCESS:
       return {
         ...state,
         isFetching: false,
+        errorMessage: '',
         clockedStaff: payload,
       };
 
+    case FETCH_ALL_STAFF_FAILURE:
+    case ADD_NEW_STAFF_FAILURE:
+    case UPDATE_STAFF_FAILURE:
     case CLOCK_STAFF_IN_FAILURE:
     case CLOCK_STAFF_OUT_FAILURE:
       return {
         ...state,
         isFetching: false,
+        clockedStaff: null,
         errorMessage: payload,
       };
     default:
       return state;
   }
 };
+
+// export const newStaffReducer = (state = INITIAL_STATE, action) => {
+//   const { type, payload } = action;
+//   switch (type) {
+//     case ADD_NEW_STAFF_REQUEST:
+//       return {
+//         ...state,
+//         isFetching: true,
+//       };
+//     case ADD_NEW_STAFF_SUCCESS:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         newStaff: payload,
+//       };
+
+//     case ADD_NEW_STAFF_FAILURE:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         errorMessage: payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
+// export const updateStaffReducer = (state = INITIAL_STATE, action) => {
+//   const { type, payload } = action;
+//   switch (type) {
+//     case UPDATE_STAFF_REQUEST:
+//       return {
+//         ...state,
+//         isFetching: true,
+//       };
+//     case UPDATE_STAFF_SUCCESS:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         updatedStaff: payload,
+//       };
+
+//     case UPDATE_STAFF_FAILURE:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         errorMessage: payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
+// export const clockStaffInReducer = (state = INITIAL_STATE, action) => {
+//   const { type, payload } = action;
+//   switch (type) {
+//     case CLOCK_STAFF_IN_REQUEST:
+//     case CLOCK_STAFF_OUT_REQUEST:
+//       return {
+//         ...state,
+//         isFetching: true,
+//       };
+//     case CLOCK_STAFF_IN_SUCCESS:
+//     case CLOCK_STAFF_OUT_SUCCESS:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         clockedStaff: payload,
+//       };
+
+//     case CLOCK_STAFF_IN_FAILURE:
+//     case CLOCK_STAFF_OUT_FAILURE:
+//       return {
+//         ...state,
+//         isFetching: false,
+//         errorMessage: payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };

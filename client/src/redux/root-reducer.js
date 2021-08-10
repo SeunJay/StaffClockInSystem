@@ -3,9 +3,9 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {
   staffReducer,
-  newStaffReducer,
-  updateStaffReducer,
-  clockStaffInReducer,
+  // newStaffReducer,
+  // updateStaffReducer,
+  // clockStaffInReducer,
 } from './staff/staff.reducers';
 
 const persistConfig = {
@@ -16,9 +16,10 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   staff: staffReducer,
-  newStaff: newStaffReducer,
-  updatedStaff: updateStaffReducer,
-  clockedStaff: clockStaffInReducer,
+  // newStaff: newStaffReducer,
+  // updatedStaff: updateStaffReducer,
+  // clockedStaff: clockStaffInReducer,
 });
 
-export default persistReducer(persistConfig, rootReducer);
+// export default persistReducer(persistConfig, rootReducer);
+export default rootReducer;

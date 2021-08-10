@@ -17,7 +17,7 @@ const createStaff = catchAsync(async (req, res, next) => {
 
   const createdStaff = await staff.save();
 
-  res.status(201).json(createdStaff);
+  res.status(201).json({ status: 'success', createdStaff });
 });
 
 // @desc    Update one staff by ID
@@ -29,18 +29,13 @@ const updateOneStaff = catchAsync(async (req, res, next) => {
 
   const staffToUpdate = await Staff.findById(id);
 
-  // if (!staffToUpdate)
-  //   return res.status(404).json({
-  //     message: 'No staff found',
-  //   });
-
   if (!staffToUpdate) return next(new AppError('Staff not found!', 404));
 
   staffToUpdate.name = name ? name : staffToUpdate.name;
   await staffToUpdate.save();
 
   res.status(200).json({
-    message: 'Staff updated successfully!',
+    status: 'success',
     staffToUpdate,
   });
 });
@@ -55,6 +50,7 @@ const getOneStaff = catchAsync(async (req, res, next) => {
   if (!staff) return next(new AppError('Staff not found!', 404));
 
   res.status(200).json({
+    status: 'success',
     staff,
   });
 });
@@ -66,6 +62,7 @@ const getAllStaff = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     count: allStaff.length,
+    status: 'success',
     allStaff,
   });
 });
@@ -88,6 +85,7 @@ const clockStaffIn = catchAsync(async (req, res, next) => {
   await staff.save();
 
   res.status(200).json({
+    status: 'success',
     staff,
   });
 });
@@ -110,6 +108,7 @@ const clockStaffOut = catchAsync(async (req, res, next) => {
   await staff.save();
 
   res.status(200).json({
+    status: 'success',
     staff,
   });
 });

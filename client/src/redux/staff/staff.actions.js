@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 import {
   FETCH_ALL_STAFF_SUCCESS,
   FETCH_ALL_STAFF_REQUEST,
@@ -129,19 +131,18 @@ export const clockStaffIn = (staffId, id) => async (dispatch) => {
       type: CLOCK_STAFF_IN_SUCCESS,
       payload: res.data.staff,
     });
+
+    toast.success('checked in successfully');
   } catch (error) {
-    console.error(error.response)
+    console.error(error.response);
     dispatch({
       type: CLOCK_STAFF_IN_FAILURE,
-      payload: {
-        msg: error.response.statusText,
-      },
+      payload: error.response.data.message,
     });
+
+    toast.error(error.response.data.message);
   }
 };
-
-
-
 
 export const clockStaffOut = (staffId, id) => async (dispatch) => {
   dispatch({ type: CLOCK_STAFF_OUT_REQUEST });
@@ -166,13 +167,12 @@ export const clockStaffOut = (staffId, id) => async (dispatch) => {
       type: CLOCK_STAFF_OUT_SUCCESS,
       payload: res.data.staff,
     });
+
+    toast.success('checked out successfully');
   } catch (error) {
-    
     dispatch({
       type: CLOCK_STAFF_OUT_FAILURE,
-      payload: {
-        msg: error.response.statusText,
-      },
+      payload: error.response.data.message,
     });
   }
 };

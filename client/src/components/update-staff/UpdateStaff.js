@@ -17,23 +17,9 @@ const UpdateStaff = () => {
 
   const dispatch = useDispatch();
 
-  const staff = useSelector((state) => state.updatedStaff);
+  const staff = useSelector((state) => state.staff);
 
   console.log(staff);
-
-  const { updatedStaff } = staff;
-
-  // useEffect(() => {
-  //   if (updatedStaff !== null) {
-  //     return setFormValues((prevProps) => ({
-  //       ...prevProps,
-  //       successMessage: 'Staff Updated successfully!',
-  //     }));
-  //   }
-  // }, []);
-
-  console.log(params.id);
-  console.log(location.state.name);
 
   const [formValues, setFormValues] = useState({
     name: location.state.name,
@@ -49,17 +35,7 @@ const UpdateStaff = () => {
     setFormValues((prevProps) => ({ ...prevProps, [name]: value }));
   };
 
-  // if (errors) {
-  //   setTimeout(() => {
-  //     setFormValues((prevProps) => ({ ...prevProps, errors: '' }));
-  //   }, 3000);
-  // }
-
-  // if (successMessage) {
-  //   setTimeout(() => {
-  //     setFormValues((prevProps) => ({ ...prevProps, successMessage: '' }));
-  //   }, 3000);
-  // }
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,8 +61,6 @@ const UpdateStaff = () => {
   return (
     <Container>
       <Title>Edit Name</Title>
-      {/* {errors && <Message error={true}>{errors}</Message>}
-      {successMessage && <Message error={false}>{successMessage}</Message>} */}
       <form onSubmit={handleSubmit}>
         <FormInput
           type='text'
