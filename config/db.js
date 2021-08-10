@@ -10,7 +10,7 @@ const localDB = 'mongodb://localhost:27017/StaffClockInAndOut';
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(localDB, {
+    const conn = await mongoose.connect(db, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
